@@ -422,7 +422,7 @@ listen 8043 default_server;
 ```
 Заменяем строку с proxy_pass на:
 ```bash
-proxy_pass http://team-19-nn:8042;
+proxy_pass http://team-k-nn:8042;
 ```
 
 Открываем файл и заменяем 
