@@ -357,37 +357,25 @@ sudo -i -u hadoop
 ssh team-k-nn
 cd hadoop-x.x.0/
 ```
-
-Останавливаем historyserver
 ```bash
-mapred --daemon stop historyserver
+mapred --daemon stop historyserver # Останавливаем historyserver
 ```
-
-Останавливаем YARN
 ```bash
-sbin/stop-yarn.sh
+sbin/stop-yarn.sh # Останавливаем YARN
 ```
-
-Останавливаем dfs
 ```bash
-sbin/stop-dfs.sh
+sbin/stop-dfs.sh # Останавливаем dfs
 ```
-
-Проверка nn
 ```bash
-jps
+jps # Проверка nn
 ```
-
-Проверка dn-0
 ```bash
-ssh team-k-dn-0
+ssh team-k-dn-0 # Проверка dn-0
 jps
 exit
 ```
-
-Проверка dn-1
 ```bash
-ssh team-k-dn-1
+ssh team-k-dn-1 # Проверка dn-1
 jps
 exit
 ```
