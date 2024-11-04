@@ -38,7 +38,7 @@ sudo apt install openssh-server
 
 ## ▎Шаг 2: Установка Hadoop
 
-Теперь, когда SSH настроен, мы можем перейти к установке Hadoop. В этом примере мы будем рассматривать конфигурацию с одним узлом (jump node) и несколькими data nodes.
+Теперь, когда SSH настроен, мы можем перейти к установке Hadoop. 
 
 ## ▎2.1: Jump Node (Master Node)
 
@@ -50,103 +50,29 @@ ssh team@ip
 ```bash
 sudo adduser hadoop
 ```
+А дальше производим операции для нового пользователя:
+-- во-первых, мы входим в пользовтаеля hadoop
+```bash
+sudo -i -u hadoop
+```
+-- во-вторых, мы генерируем ключ для нашего нового пользователя:
+```bash
+ssh-keygen
+```
+-- в-третьих, мы сохраняем наш ключ на внешний носитель, а для этого выводим его на экран:
+```bash
+cat .ssh/id_ed25519.pub
+```
+Подготовительный этап завершился, поэтому непосредственно сама установка. Из-за необходимости ожидания скачивания, воспрользуемся сессионным менеджером:
+```bash
+tmux
+```
+Зайдя в котороый мы пишем команду по скачиванию дитрибутива
+```bash
+wget https://downloads.apache.org/hadoop/common/hadoop-3.x.x/hadoop-3.x.x.tar.gz
+```
+где .x.x - это версия дистрибутива на текущий день, для октября 2024 года это .4.0
+
+И после этого выходим из сессионного менеджера.
 
 
-1. Скачайте и установите Hadoop на вашем jump node (например, hadoopuser):
-
-   wget https://downloads.apache.org/hadoop/common/hadoop-3.x.x/hadoop-3.x.x.tar.gz
-   tar -xzf hadoop-3.x.x.tar.gz
-   sudo mv hadoop-3.x.x /usr/local/hadoop
-   
-
-2. Настройте переменные окружения в .bashrc:
-
-   export HADOOP_HOME=/usr/local/hadoop
-   export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
-   export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64  # Убедитесь, что путь к Java правильный
-   
-
-3. Настройте конфигурационные файлы Hadoop в /usr/local/hadoop/etc/hadoop:
-
-   • core-site.xml:
-          <configuration>
-       <property>
-         <name>fs.defaultFS</name>
-         <value>hdfs://localhost:9000</value>
-       </property>
-     </configuration>
-     
-
-   • hdfs-site.xml:
-          <configuration>
-       <property>
-         <name>dfs.replication</name>
-         <value>1</value>
-       </property>
-     </configuration>
-     
-
-   • mapred-site.xml:
-          <configuration>
-       <property>
-         <name>mapreduce.framework.name</name>
-         <value>yarn</value>
-       </property>
-     </configuration>
-     
-
-   • yarn-site.xml:
-          <configuration>
-       <property>
-         <name>yarn.nodemanager.aux-services</name>
-         <value>mapreduce_shuffle</value>
-       </property>
-       <property>
-         <name>yarn.nodemanager.aux-services.mapreduce.shuffle.class</name>
-         <value>org.apache.hadoop.mapred.ShuffleHandler</value>
-       </property>
-     </configuration>
-     
-
-4. Форматируйте HDFS:
-
-      hdfs namenode -format
-   
-
-5. Запустите Hadoop:
-
-      start-dfs.sh
-   start-yarn.sh
-   
-
-## ▎2.2: Data Nodes
-
-Теперь, если у вас есть дополнительные узлы (data nodes), выполните следующие шаги на каждом из них:
-
-1. Установите Java и Hadoop аналогично jump node.
-
-2. Настройте SSH так же, как вы сделали это на jump node.
-
-3. Скопируйте конфигурационные файлы с jump node на data nodes:
-
-   Вы можете использовать SCP для копирования конфигурационных файлов:
-
-      scp -r /usr/local/hadoop/etc/hadoop hadoopuser@data-node-ip:/usr/local/hadoop/etc/
-   
-
-4. Настройте slaves файл на jump node:
-
-   В файле /usr/local/hadoop/etc/hadoop/slaves добавьте IP-адреса или имена всех ваших data nodes:
-
-      data-node-ip1
-   data-node-ip2
-   
-
-5. Запустите data nodes:
-
-   На jump node выполните команду:
-
-      start-dfs.sh
-   
-
-## ▎Шаг 3: Проверка установки
