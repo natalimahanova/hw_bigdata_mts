@@ -15,24 +15,24 @@ sudo apt install openssh-server
 2. Создайте SSH-ключи:
 
    Войдите под пользователем, который будет использоваться для работы с Hadoop (например, hadoopuser):
-
-      su - hadoopuser
+```bash
+   su - hadoopuser
    ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa
-   
+```  
 
 3. Добавьте публичный ключ в authorized_keys:
 
-   Выполните следующую команду, чтобы добавить ваш публичный ключ в файл authorized_keys, что позволит вам подключаться к вашему узлу без пароля:
-
+   Выполните следующую команду, чтобы добавить ваш публичный ключ в файл authorized_keys, что позволит вам подключаться к вашему узлу без пароля (также происходит и добавление внешних ключей сокомандников):
+```bash
       cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
-   
+```   
 
 4. Проверьте SSH-соединение:
 
    Попробуйте подключиться к localhost:
-
+```bash
       ssh localhost
-   
+```   
 
    Если вы сможете подключиться без запроса пароля, настройка SSH выполнена успешно.
 
@@ -42,16 +42,26 @@ sudo apt install openssh-server
 
 ## ▎2.1: Jump Node (Master Node)
 
+В первую очередь нужно войти, а значит чтобы подключиться к jump node, нужно сделать следующее:
+```bash
+ssh team@ip
+```
+Необходимо обеспечить взаимодействие между всеми узлами, и для безопасности создаем специального пользователя:
+```bash
+sudo adduser hadoop
+```
+
+
 1. Скачайте и установите Hadoop на вашем jump node (например, hadoopuser):
 
-      wget https://downloads.apache.org/hadoop/common/hadoop-3.x.x/hadoop-3.x.x.tar.gz
+   wget https://downloads.apache.org/hadoop/common/hadoop-3.x.x/hadoop-3.x.x.tar.gz
    tar -xzf hadoop-3.x.x.tar.gz
    sudo mv hadoop-3.x.x /usr/local/hadoop
    
 
 2. Настройте переменные окружения в .bashrc:
 
-      export HADOOP_HOME=/usr/local/hadoop
+   export HADOOP_HOME=/usr/local/hadoop
    export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
    export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64  # Убедитесь, что путь к Java правильный
    
