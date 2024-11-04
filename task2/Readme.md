@@ -16,7 +16,7 @@ sudo -i -u hadoop
 
 Переходим на name node
 ```bash
-ssh team-19-nn
+ssh team-k-nn
 ```
 
 Переходим в папку дистрибутива
@@ -349,31 +349,36 @@ ssh -L 8044:team-k-dn-1:8042 team@host
 
 
 ## Остановка сервисов
-
-##### Выполняем
+шаг 1
 ```bash
 ssh team@host
 sudo -i -u hadoop
 ssh team-k-nn
 cd hadoop-x.x.0/
 ```
+шаг 2
 ```bash
 mapred --daemon stop historyserver # Останавливаем historyserver
 ```
+шаг 3
 ```bash
 sbin/stop-yarn.sh # Останавливаем YARN
 ```
+шаг 4
 ```bash
 sbin/stop-dfs.sh # Останавливаем dfs
 ```
+шаг 5
 ```bash
 jps # Проверка nn
 ```
+шаг 6
 ```bash
 ssh team-k-dn-0 # Проверка dn-0
 jps
 exit
 ```
+шаг 7
 ```bash
 ssh team-k-dn-1 # Проверка dn-1
 jps
