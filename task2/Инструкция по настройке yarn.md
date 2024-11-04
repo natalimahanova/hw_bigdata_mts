@@ -412,7 +412,7 @@ sudo cp /etc/nginx/sites-available/nn /etc/nginx/sites-available/nm-1
 ```
 
 Открываем файл и заменяем 
-Открываем 
+
 ```bash
 sudo nano /etc/nginx/sites-available/nm-0
 ```
@@ -426,7 +426,7 @@ proxy_pass http://team-k-nn:8042;
 ```
 
 Открываем файл и заменяем 
-Открываем 
+
 ```bash
 sudo nano /etc/nginx/sites-available/nm-1
 ```
