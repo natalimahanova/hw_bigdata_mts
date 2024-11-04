@@ -8,8 +8,8 @@
 
    На большинстве дистрибутивов Linux SSH уже установлен. Если нет, вы можете установить его с помощью следующей команды:
 ```bash
-      sudo apt update
-   sudo apt install openssh-server
+sudo apt update
+sudo apt install openssh-server
 ```   
 
 2. Создайте SSH-ключи:
