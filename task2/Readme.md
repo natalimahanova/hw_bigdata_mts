@@ -268,12 +268,12 @@ YARN. Открываем конфиг и заменяем порт в listen и 
  sudo nano /etc/nginx/sites-available/ya
 ```
 
-historyserver. Открываем конфиг и заменяем порт в listen и proxy_pass на порт 19888
+То же самое делаем с historyserver, только изменяем уже на порт 19888
 ```bash
  sudo nano /etc/nginx/sites-available/dh
 ```
 
-Включаем хосты
+Ну и наконец включаем: 🥳🥳🥳
 ```bash
  sudo ln -s /etc/nginx/sites-available/ya /etc/nginx/sites-enabled/ya
  sudo ln -s /etc/nginx/sites-available/dh /etc/nginx/sites-enabled/dh
@@ -313,7 +313,7 @@ ssh team@host
 sudo -i -u hadoop
 ```
 
-Переключаемся на dn-0 и открываем yarn-site.xml
+Переключаемся на data node 0 и открываем yarn-site.xml
 ```bash
 ssh team-k-dn-0
 nano /home/hadoop/hadoop-x.x.0/etc/hadoop/yarn-site.xml
@@ -354,7 +354,7 @@ nano /home/hadoop/hadoop-x.x.0/etc/hadoop/yarn-site.xml
 </configuration>
 ```
 
-Переключаемся на dn-1 и открываем yarn-site.xml
+Переключаемся на data node 1 и открываем yarn-site.xml
 ```bash
 ssh team-k-dn-1
 nano /home/hadoop/hadoop-x.x.0/etc/hadoop/yarn-site.xml
@@ -395,7 +395,7 @@ nano /home/hadoop/hadoop-x.x.0/etc/hadoop/yarn-site.xml
 </configuration>
 ```
 
-Переходим на jn
+Переходим на jump node
 ```bash
 ssh team-k-jn
 ```
