@@ -4,22 +4,20 @@
 #### Срузу можно продемонстровать результат работы:
 ![image](https://github.com/user-attachments/assets/f437ae46-40c1-4d1a-8950-4a9417a3d5ef)
 
-Подключаемся
+Используем уже известные нам команды:
+шаг 1
 ```bash
 ssh team@host
 ```
-
-Переходим на пользователя hadoop
+шаг 2
 ```bash
 sudo -i -u hadoop
 ```
-
-Переходим на name node
+шаг 3
 ```bash
 ssh team-k-nn
 ```
-
-Переходим в папку дистрибутива
+шаг 4
 ```bash
 cd hadoop-x.x.0/etc/hadoop
 ```
